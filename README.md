@@ -57,9 +57,9 @@ py -m pip install TwigWeb
 This example does not show all of the functionality of Twig.  There is documentation currently being worked on.
 
 ```py
-from src.TwigWeb.backend.routehandler.route import Route, RouteParameter, RouteParamType
-from src.TwigWeb.backend import Server
-from src.TwigWeb.backend.response import Response
+from TwigWeb.backend.routehandler.route import Route, RouteParameter, RouteParamType
+from TwigWeb.backend import Server
+from TwigWeb.backend.response import Response
 
 app = Server("", debug=True, open_root=False)
 
