@@ -58,13 +58,14 @@ This example does not show all of the functionality of Twig.  There is documenta
 
 ```py
 from TwigWeb.backend.routehandler.route import Route, RouteParameter, RouteParamType
-from TwigWeb.backend import Server
+from TwigWeb.backend import Server, ContentType
+from TwigWeb.backend.headers import Headers
 from TwigWeb.backend.response import Response
 
 app = Server("", debug=True, open_root=False)
 
 @app.route("")
-def index(headers):
+def index(headers:Headers):
     #this is the index of the app
     return Response("test", ContentType.html)
 
@@ -80,15 +81,35 @@ def form(headers):
 </form>""")
 
 @app.route("page/[num]")
-def index(headers, num):
+def index(headers:Headers, num:int):
     # Headers.URL is a dictionary containing all url query parameters/variables.
     # num a dynamic route.
     return Response(f"num: {num} and {headers.URL}", ContentType.html)
 
 @app.route("page")
-def index(headers):
+def index(headers:Headers):
     return Response(f"page", ContentType.html)
 
 app.run()
 ```
 
+STDOUT:
+
+```
+STARTED - http://localhost:8000/
+   REQUEST - GET / HTTP/1.1
+     FROM 127.0.0.1
+     PATH "/"
+   REQUEST - GET /page/1 HTTP/1.1
+     FROM 127.0.0.1
+     PATH "/page/1"
+   REQUEST - GET /page HTTP/1.1
+     FROM 127.0.0.1
+     PATH "/page"
+   REQUEST - GET /form HTTP/1.1
+     FROM 127.0.0.1
+     PATH "/form"
+   REQUEST - GET /page/2?fname=John&lname=Doe HTTP/1.1
+     FROM 127.0.0.1
+     PATH "/page/2?fname=John&lname=Doe"
+```
