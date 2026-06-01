@@ -93,7 +93,7 @@ def index(headers:Headers):
 app.run()
 ```
 
-STDOUT:
+stdout:
 
 ```
 STARTED - http://localhost:8000/
